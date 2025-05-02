@@ -1,21 +1,298 @@
----
-import Layout from '../layouts/Layout.astro';
-import ContextAlert from '../components/ContextAlert.astro';
-import Markdown from '../components/Markdown.astro';
-
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
----
-
-<Layout title="Welcome to Astro.">
-    <ContextAlert class="mb-8" />
-    <h1 class="mb-10">Power Nest Solutions</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerNest - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header .logo img {
+            width: 150px;
+            height: auto;
+            object-fit: contain;
+        }
+        .header nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+        .hero {
+            position: relative;
+            height: 500px;
+            background: url('https://via.placeholder.com/1200x500.png?text=Solar+Panels') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 50px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .hero p {
+            font-size: 20px;
+            margin: 10px 0 20px;
+        }
+        .hero .buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .hero button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .hero .quote-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .hero .services-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        .section {
+            padding: 50px;
+            text-align: center;
+        }
+        .section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .section p {
+            font-size: 16px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .values, .services, .testimonials {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .value-card, .service-card, .testimonial-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            text-align: center;
+        }
+        .value-card i, .service-card i {
+            font-size: 40px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .value-card h3, .service-card h3, .testimonial-card h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .service-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .service-card a, .testimonial-card .stars {
+            color: #28a745;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .testimonial-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 10px auto;
+            display: block;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            color: #333;
+        }
+        .testimonial-card .author {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .footer {
+            background-color: #1a2a44;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .footer div {
+            margin: 10px 0;
+        }
+        .footer .logo img {
+            width: 150px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .footer p, .footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .footer .social-icons a {
+            margin: 0 10px;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .footer .copyright {
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/150x50.png?text=PowerNest+Logo" alt="PowerNest Logo">
+        </div>
+        <nav>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Testimonials</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+    <div class="hero">
+        <h1>Powering Homes & Businesses with Clean Solar Energy</h1>
+        <p>Residential & Commercial Solar Rooftop Experts</p>
+        <div class="buttons">
+            <button class="quote-btn">Get a Quote</button>
+            <button class="services-btn">View Services</button>
+        </div>
+    </div>
+    <div class="section">
+        <h2>About PowerNest</h2>
+        <p>Since 2015, PowerNest has been at the forefront of solar energy solutions, helping thousands of homes and businesses transition to clean, renewable energy. Our commitment to sustainability drives everything we do.</p>
+        <div class="values">
+            <div class="value-card">
+                <i>🌿</i>
+                <h3>Sustainability</h3>
+                <p>Committed to reducing carbon footprint and promoting renewable energy solutions.</p>
+            </div>
+            <div class="value-card">
+                <i>🤝</i>
+                <h3>Trust</h3>
+                <p>Building lasting relationships through transparency and reliable service.</p>
+            </div>
+            <div class="value-card">
+                <i>🏆</i>
+                <h3>Excellence</h3>
+                <p>Excellence in service and professional installation.</p>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service-card">
+                <img src="https://via.placeholder.com/300x150.png?text=Residential+Solar" alt="Residential Solar">
+                <h3>Residential Solar Panels</h3>
+                <p>Custom solar solutions for homes, reducing energy bills while increasing property value.</p>
+                <a href="#">Learn More →</a>
+            </div>
+            <div class="service-card">
+                <img src="https://via.placeholder.com/300x150.png?text=Commercial+Solar" alt="Commercial Solar">
+                <h3>Commercial Installations</h3>
+                <p>Large-scale solar solutions for businesses and industrial facilities.</p>
+                <a href="#">Learn More →</a>
+            </div>
+            <div class="service-card">
+                <img src="https://via.placeholder.com/300x150.png?text=Maintenance+Monitoring" alt="Maintenance & Monitoring">
+                <h3>Maintenance & Monitoring</h3>
+                <p>24/7 system monitoring and regular maintenance services.</p>
+                <a href="#">Learn More →</a>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="section">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <p>"PowerNest transformed our home with solar panels. The installation was smooth, and we're seeing significant energy savings!"</p>
+                <div class="stars">★★★★★</div>
+                <img src="https://via.placeholder.com/50x50.png?text=John" alt="John Davis">
+                <div class="author">John Davis, San Francisco, CA</div>
+            </div>
+            <div class="testimonial-card">
+                <p>"As a business owner, PowerNest was the best choice. Professional team and excellent ongoing support."</p>
+                <div class="stars">★★★★★</div>
+                <img src="https://via.placeholder.com/50x50.png?text=Sarah" alt="Sarah Johnson">
+                <div class="author">Sarah Johnson, Austin, TX</div>
+            </div>
+            <div class="testimonial-card">
+                <p>"The monitoring system gives us peace of mind. We can track our energy production and savings in real-time."</p>
+                <div class="stars">★★★★★</div>
+                <img src="https://via.placeholder.com/50x50.png?text=Michael" alt="Michael Chen">
+                <div class="author">Michael Chen, Seattle, WA</div>
+            </div>
+        </div>
+    </div> -->
+    <div class="footer">
+        <div>
+            <div class="logo">
+                <img src="https://via.placeholder.com/150x50.png?text=PowerNest+Logo" alt="PowerNest Logo">
+            </div>
+            <p>Leading the way in sustainable energy for homes and businesses.</p>
+            <p>Committed to GREEN Energy 🌿</p>
+        </div>
+        <div>
+            <h3>QUICK LINKS</h3>
+            <p><a href="#">About Us</a></p>
+            <p><a href="#">Services</a></p>
+            <p><a href="#">Testimonials</a></p>
+            <p><a href="#">Contact</a></p>
+        </div>
+        <div>
+            <h3>SERVICES</h3>
+            <p><a href="#">Residential Solar</a></p>
+            <p><a href="#">Commercial Solar</a></p>
+            <p><a href="#">Maintenance</a></p>
+            <p><a href="#">Monitoring</a></p>
+        </div>
+        <div>
+            <h3>FOLLOW US</h3>
+            <div class="social-icons">
+                <a href="#">📘</a>
+                <a href="#">🐦</a>
+                <a href="#">📸</a>
+                <a href="#">🎥</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 POWERNest Solutions. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
